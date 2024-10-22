@@ -4,9 +4,9 @@ import { Talent } from "holodle-types"
 export function matchTalent(talents: Talent[], searchString: string): Nullable<Talent> {
     return talents.find(t => {
         /* Try to match full name */
-        if (Object.values(t.name).some(n => n.toLowerCase() === searchString)) return true
+        if (Object.values(t.name).some(n => n.split(" ").some(x => x.toLowerCase() === searchString.toLowerCase()))) return true
         /* Also try to match alias */
-        if (t.aliases.some(a => Object.values(a).some(n => n.toLowerCase() === searchString))) return true
+        if (t.aliases.some(a => Object.values(a).some(n => n.toLowerCase() === searchString.toLowerCase()))) return true
     }) ?? null
 }
 

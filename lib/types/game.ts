@@ -12,3 +12,23 @@ export enum GameStatus {
     Fail,
     Success
 }
+
+export enum HintTemperature {
+    Gray,
+    Yellow,
+    Green
+}
+
+export type HintCategories =
+      "birthday"
+    | "anniversary"
+    | "generation"
+    | "height"
+    | "imageColor"
+    | "outfitCount"
+    | "originalSongCount"
+
+
+export type Hint = {
+    [key in HintCategories]: HintTemperature
+}

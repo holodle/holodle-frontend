@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
                 <meta name="apple-mobile-web-app-title" content="holodle!"/>
             </head>
-            <body className={`${inter.className} ${inter.className} antialiased`}>
+            <body className={`${inter.className} ${inter.className} antialiased transform-gpu`}>
                 {children}
             </body>
         </html>

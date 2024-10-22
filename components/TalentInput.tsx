@@ -38,8 +38,9 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
         setDropdownHighlightPos(-1)
         if (t) {
             if (selectedTalent && selectedTalent.id === t.id) return
-            setSelectedTalent(t)
             hideDropdown()
+            setSelectedTalent(t)
+            setDropdownTalentsList(talents)
         } else {
             setSelectedTalent(null)
             showDropdown()
@@ -50,7 +51,6 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
         if (e.key === "ArrowDown") {
             setDropdownHighlightPos(p => {
                 if (p < dropdownTalentsList.length - 1) {
-                    // @ts-ignore
                     document.getElementById(`${talentOptionId}-${p + 1}`).scrollIntoView({
                         behavior: "smooth",
                         block: "end"
@@ -61,7 +61,6 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
         } else if (e.key === "ArrowUp") {
             setDropdownHighlightPos(p => {
                 if (p > 0) {
-                    // @ts-ignore
                     document.getElementById(`${talentOptionId}-${p - 1}`).scrollIntoView({
                         behavior: "smooth",
                         block: "end"
@@ -70,8 +69,11 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
                 } return p
             })
         } else if (e.key === "Enter") {
-            if (!dropdownHidden) {
+            if (!dropdownHidden && 0 <= dropdownHighlightPos && dropdownHighlightPos < dropdownTalentsList.length) {
                 onDropdownSelect(dropdownTalentsList[dropdownHighlightPos])
+                hideDropdown()
+            } else if (!dropdownHidden && dropdownHighlightPos === -1 && dropdownTalentsList.length === 1) {
+                onDropdownSelect(dropdownTalentsList[0])
                 hideDropdown()
             }
         }
@@ -81,10 +83,11 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
         const i = document.getElementById(id) as HTMLInputElement
         i.value = t.name.en
         setSelectedTalent(t)
+        setDropdownTalentsList(talents)
     }
 
     return (
-        <div className={`w-[600px] flex flex-col justify-center items-center rounded-lg`}>
+        <div className={`w-[600px] flex flex-col justify-center items-center rounded-lg mb-24`}>
             <div className={`
                 w-full h-14 px-6 py-2
                 flex flex-row flex-gap-2

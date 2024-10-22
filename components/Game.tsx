@@ -6,7 +6,7 @@ import { TalentInput, Button } from "@/components"
 import guess from "@/lib/functions/game"
 import { GameState, GameStatus } from "@/lib/types/game"
 import { Nullable } from "@/lib/types/tools"
-import { gameConfig } from "@/lib/config"
+import GameDisplay from "@/components/GameDisplay";
 
 export default function Game({ talentsJSON }: { talentsJSON: string }) {
     const talentsParsed: ITalent[] = JSON.parse(talentsJSON)
@@ -20,18 +20,18 @@ export default function Game({ talentsJSON }: { talentsJSON: string }) {
     })
     const talentInputId = "talent-input"
 
-    const statusDisplay = (gs: GameState) => {
-        switch (gs.status) {
-            case GameStatus.Fresh:
-                return <p>Game Not Started</p>
-            case GameStatus.InProgress:
-                return <p>Game In Progress ({gs.guesses.length}/{gameConfig.maxGuesses})</p>
-            case GameStatus.Fail:
-                return <b>You Lose!!</b>
-            case GameStatus.Success:
-                return <b>You Win!!</b>
-        }
-    }
+    // const statusDisplay = (gs: GameState) => {
+    //     switch (gs.status) {
+    //         case GameStatus.Fresh:
+    //             return <p>Game Not Started</p>
+    //         case GameStatus.InProgress:
+    //             return <p>Game In Progress ({gs.guesses.length}/{gameConfig.maxGuesses})</p>
+    //         case GameStatus.Fail:
+    //             return <b>You Lose!! ANSWER: {gs.answer.name['en']}</b>
+    //         case GameStatus.Success:
+    //             return <b>You Win!!</b>
+    //     }
+    // }
 
     const guessCallback = () => {
         if (selectedTalent) {
@@ -54,13 +54,8 @@ export default function Game({ talentsJSON }: { talentsJSON: string }) {
 
     return (
         <div className={"w-full flex flex-col items-center justify-center py-24 gap-y-8"}>
-            <h1 className={"text-[48px] font-semibold"}>holodle</h1>
-
             <div className={"flex flex-col gap-2 items-center justify-center"}>
-                {statusDisplay(gameState)}
-                {gameState.guesses.map(t =>
-                    <p>{t.name["en"]} {(t.id === gameState.answer.id) ? "CORRECT" : "WRONG"}</p>
-                )}
+                <GameDisplay gameState={gameState}/>
             </div>
 
             {gameState.status < 2 ? <>

@@ -12,6 +12,17 @@ const config: Config = {
         }
     },
     plugins: [],
+    safelist: [
+        {
+            pattern: /grid-cols-.+/
+        },
+        {
+            pattern: /grid-rows-.+/
+        },
+        {
+            pattern: /row-start-.+/
+        }
+    ]
 }
 
 export default config
