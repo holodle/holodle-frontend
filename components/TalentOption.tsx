@@ -1,7 +1,7 @@
 import Image from "next/image"
 import React from "react"
 import { Talent } from "holodle-types"
-import { getGenerationString } from "@/lib/functions/talents";
+import { getTalentGenerationString } from "@/lib/functions/talents";
 
 type OptionProps = {
     talent: Talent,
@@ -34,7 +34,7 @@ export default function TalentOption({ talent, id, onSelect, onMouseEnter, onMou
                         {talent.name.en}
                     </p>
                     <p className={"text-xs font-light opacity-75"}>
-                        {`${talent.generations[0].branch.name.en} - ${getGenerationString(talent)}`}
+                        {`${talent.generations[0].branch.name.en} - ${getTalentGenerationString(talent)}`}
                     </p>
                 </div>
             </div>

@@ -19,7 +19,7 @@ export enum HintTemperature {
     Green
 }
 
-export type HintCategories =
+export type HintIdentifier =
       "birthday"
     | "anniversary"
     | "generation"
@@ -29,6 +29,18 @@ export type HintCategories =
     | "originalSongCount"
 
 
-export type Hint = {
-    [key in HintCategories]: HintTemperature
+export type HintData = {
+    [key in HintIdentifier]: HintTemperature
+}
+
+export type HintMetadata = {
+    [key in HintIdentifier]: {
+        title: string
+        descriptions: string[]
+        criteria: Partial<{
+            [key in HintTemperature]: string
+        }>
+        relevantTalentAttribute: keyof Talent
+        order: number
+    }
 }

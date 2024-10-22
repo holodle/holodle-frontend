@@ -19,7 +19,7 @@ export function searchTalents(talents: Talent[], searchString: string): Talent[]
     })
 }
 
-export function getGenerationString(talent: Talent): string {
+export function getTalentGenerationString(talent: Talent): string {
     if (talent.generations.length >= 2) {
         // Only show "Promise" if talent has another associated generation (Council, etc.)
         if (talent.generations.some(g => g.name['en'] === "Promise")) {
@@ -30,4 +30,16 @@ export function getGenerationString(talent: Talent): string {
     } else {
         return talent.generations[0].name['en']
     }
+}
+
+export function getMMDDString(date: string): string {
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    const daySuffix = {"st": [1, 21, 31], "nd": [2, 22], "rd": [3, 23]}
+    const dateObj = new Date(2000, Number(date.substring(0, 2)) - 1, Number(date.substring(2, 4)))
+    let dd = String(dateObj.getDate())
+    Object.entries(daySuffix).forEach(([s, d]) => {
+        if (d.some(n => n === dateObj.getDate())) dd += s
+    })
+    if (dd.length <= 2) dd += "th"
+    return `${months[dateObj.getMonth()]} ${dd}`
 }

@@ -1,4 +1,4 @@
-import { GameState, GameStatus, Hint, HintTemperature } from "@/lib/types/game"
+import { GameState, GameStatus, HintData, HintTemperature } from "@/lib/types/game"
 import { Result } from "@/lib/types/tools"
 import { fail, success, withinOneMonth } from "@/lib/functions/tools"
 import { gameConfig } from "@/lib/config"
@@ -32,17 +32,20 @@ export default function guess(gameState: GameState, t: Talent): Result<GameState
     return success(gameState)
 }
 
-export function getHint(ans: Talent, guess: Talent): Hint {
+export function getHint(ans: Talent, guess: Talent): HintData {
     const compareBirthday = (a: Talent, b: Talent): HintTemperature => {
-        if (a.birthday === b.birthday) return HintTemperature.Green
-        else if (withinOneMonth(a.birthday, b.birthday)) return HintTemperature.Yellow
-        else return HintTemperature.Gray
+        if (a.birthday === b.birthday)
+            return HintTemperature.Green
+        else if (withinOneMonth(a.birthday, b.birthday))
+            return HintTemperature.Yellow
+        else
+            return HintTemperature.Gray
     }
 
     const compareAnniversary = (a: Talent, b: Talent): HintTemperature => {
         if (a.anniversary === b.anniversary)
             return HintTemperature.Green
-        else if (withinOneMonth(a.birthday, b.birthday))
+        else if (withinOneMonth(a.anniversary, b.anniversary))
             return HintTemperature.Yellow
         else
             return HintTemperature.Gray

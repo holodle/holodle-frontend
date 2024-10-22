@@ -6,7 +6,7 @@ import { TalentInput, Button } from "@/components"
 import guess from "@/lib/functions/game"
 import { GameState, GameStatus } from "@/lib/types/game"
 import { Nullable } from "@/lib/types/tools"
-import GameDisplay from "@/components/GameDisplay";
+import HintDisplay from "@/components/HintDisplay";
 
 export default function Game({ talentsJSON }: { talentsJSON: string }) {
     const talentsParsed: ITalent[] = JSON.parse(talentsJSON)
@@ -55,7 +55,7 @@ export default function Game({ talentsJSON }: { talentsJSON: string }) {
     return (
         <div className={"w-full flex flex-col items-center justify-center py-24 gap-y-8"}>
             <div className={"flex flex-col gap-2 items-center justify-center"}>
-                <GameDisplay gameState={gameState}/>
+                <HintDisplay gameState={gameState}/>
             </div>
 
             {gameState.status < 2 ? <>

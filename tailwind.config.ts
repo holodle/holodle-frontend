@@ -21,6 +21,9 @@ const config: Config = {
         },
         {
             pattern: /row-start-.+/
+        },
+        {
+            pattern: /col-start-.+/
         }
     ]
 }

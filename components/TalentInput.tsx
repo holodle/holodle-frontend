@@ -51,6 +51,7 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
         if (e.key === "ArrowDown") {
             setDropdownHighlightPos(p => {
                 if (p < dropdownTalentsList.length - 1) {
+                    // @ts-ignore
                     document.getElementById(`${talentOptionId}-${p + 1}`).scrollIntoView({
                         behavior: "smooth",
                         block: "end"
@@ -61,6 +62,7 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
         } else if (e.key === "ArrowUp") {
             setDropdownHighlightPos(p => {
                 if (p > 0) {
+                    // @ts-ignore
                     document.getElementById(`${talentOptionId}-${p - 1}`).scrollIntoView({
                         behavior: "smooth",
                         block: "end"
@@ -87,7 +89,7 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
     }
 
     return (
-        <div className={`w-[600px] flex flex-col justify-center items-center rounded-lg mb-24`}>
+        <div className={`w-[640px] flex flex-col justify-center items-center rounded-lg`}>
             <div className={`
                 w-full h-14 px-6 py-2
                 flex flex-row flex-gap-2
@@ -118,7 +120,7 @@ export default function TalentInput({ talents, selectedTalent, setSelectedTalent
                 </div>
             </div>
 
-            <div className={`relative w-[570px] z-10 ${dropdownHidden? "hidden" : ""}`}>
+            <div className={`relative w-[600px] z-10 mb-24 ${dropdownHidden? "hidden" : ""}`}>
                 <div className={"w-full bg-purple-500 rounded-b-lg text-white max-h-52 overflow-y-auto drop-shadow-md absolute"}>
                     {dropdownTalentsList.map((t, i) =>
                         <TalentOption
